@@ -1,0 +1,24 @@
+{
+  "name": "znui",
+  "version": "1.0.0",
+  "description": "Znui is the front-end basic framework.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/znui/znui.git"
+  },
+  "keywords": [
+    "front-end",
+    "web",
+    "ui",
+    "zeanium"
+  ],
+  "author": "yangyxu",
+  "email": "xuyy0618@qq.com",
+  "license": "MIT",
+  "dependencies": {
+    "@zeanium/core": "^1.0.1",
+    "@zeanium/util": "^1.0.0"
+  },
+  "preferGlobal": true
+}
