@@ -7,7 +7,7 @@ module.exports = {
     context: path.join(process.cwd(), 'src'),
     mode: process.env.NODE_ENV || 'production',
     entry: {
-        "znui": './znui.js'
+        "index": './index.js'
     },
     output: {
         path: path.join(process.cwd(), 'dist'),
