@@ -7,9 +7,14 @@
     "type": "git",
     "url": "https://github.com/znui/znui.git"
   },
+  "scripts": {
+    "build": "webpack --uglify",
+    "publish": "npm publish --access public",
+    "unpublish": "npm unpublish --access public  --force"
+  },
   "keywords": [
     "front-end",
-    "web",
+    "znui",
     "ui",
     "zeanium"
   ],
@@ -17,8 +22,33 @@
   "email": "xuyy0618@qq.com",
   "license": "MIT",
   "dependencies": {
-    "@zeanium/core": "^1.0.1",
-    "@zeanium/util": "^1.0.0"
+    "@zeanium/core": "^1.0.5"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "babel-plugin-transform-remove-strict-mode": "0.0.2",
+    "create-react-class": "^15.6.3",
+    "css-loader": "^2.1.0",
+    "cssnano": "^4.1.10",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "raw-loader": "^1.0.0",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
+    "rimraf": "^2.6.3",
+    "scss": "^0.2.4",
+    "scss-loader": "0.0.1",
+    "style-loader": "^0.23.1",
+    "uglifyjs-webpack-plugin": "2.1.1",
+    "url-loader": "^1.1.2",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
   },
   "preferGlobal": true
 }
