@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = zn.GLOBAL.znui = {
     util: require('./util/index'),
     downloadDataURL: function (dataURL, filename){
         var blob = this.dataURLToBlob(dataURL);

@@ -25,9 +25,6 @@ var Request = zn.Class({
             this.sets(argv);
             this.reset();
         },
-        __initMapping: function () {
-            this._mapping = new Mapping();
-        },
         reset: function (){
             var _meta = location.hash.split('?');
             this._path = _meta[0].slice(1);

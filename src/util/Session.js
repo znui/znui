@@ -1,6 +1,21 @@
 module.exports = zn.Class({
-    static: true,
+    statics: {
+        create: function (application) {
+            return new this.prototype.constructor(application);
+        }
+    },
+    properties:{
+        application: {
+            readonly: true,
+            get: function (){
+                return this._application;
+            }
+        }
+    },
     methods: {
+        init: function (application){
+            this._application = application;
+        },
         fixRelativePath: function (path){
             var _basePath = this._basePath || '';
             if(path.indexOf(_basePath)==-1){
@@ -25,8 +40,6 @@ module.exports = zn.Class({
                 this._search = {};
             }
             this._search = zn.overwrite(_search, this._search);
-
-            zn.react.global.fireJump();
             var _querystring = zn.querystring.stringify(this._search);
 
             location.hash = path + (_querystring ? '?' + _querystring : '');
