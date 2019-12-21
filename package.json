@@ -1,14 +1,20 @@
 {
   "name": "znui",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "znui is the front-end basic framework.",
-  "main": "index.core.web.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/znui/znui.git"
   },
   "scripts": {
-    "build": "webpack --uglify",
+    "webpack": "rimraf dist && webpack",
+    "webpack-watch": "rimraf dist && webpack --watch",
+    "clean-dist": "rimraf dist",
+    "clean-build": "rimraf build",
+    "release": "npm run clean-dist && npm run clean-build && babel src -d build && webpack --uglify",
+    "build": "rimraf build && babel src -d build",
+    "dist": "rimraf dist && webpack --uglify",
     "publish": "npm publish",
     "unpublish": "npm unpublish"
   },
