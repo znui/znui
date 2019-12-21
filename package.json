@@ -1,8 +1,8 @@
 {
   "name": "znui",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "description": "znui is the front-end basic framework.",
-  "main": "index.js",
+  "main": "index.core.web.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/znui/znui.git"
