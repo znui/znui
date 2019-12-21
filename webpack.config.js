@@ -7,15 +7,12 @@ module.exports = {
     context: path.join(process.cwd(), 'src'),
     mode: process.env.NODE_ENV || 'production',
     entry: {
-        "znui": './znui.js',
-        "znui.core": './znui.core.js',
-        "znui.core.web": './znui.core.web.js'
+        "znui": './index.js'
     },
-    /*
     externals: {
         "@zeanium/core": "zn-core",
         "@zeanium/web": "zn-web"
-    },*/
+    },
     output: {
         path: path.join(process.cwd(), 'dist'),
         filename: '[name].js',
