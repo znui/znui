@@ -11,6 +11,11 @@ module.exports = {
         "znui.core": './znui.core.js',
         "znui.core.web": './znui.core.web.js'
     },
+    /*
+    externals: {
+        "@zeanium/core": "zn-core",
+        "@zeanium/web": "zn-web"
+    },*/
     output: {
         path: path.join(process.cwd(), 'dist'),
         filename: '[name].js',
