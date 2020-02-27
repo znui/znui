@@ -1,6 +1,6 @@
 {
   "name": "znui",
-  "version": "1.2.10",
+  "version": "1.2.11",
   "description": "znui is the front-end basic framework.",
   "main": "index.js",
   "repository": {
@@ -32,8 +32,8 @@
     "@babel/core": "^7.4.0",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
-    "@zeanium/core": "^1.0.7",
-    "@zeanium/web": "^1.0.9",
+    "@zeanium/core": "latest",
+    "@zeanium/web": "latest",
     "babel-loader": "^8.0.5",
     "babel-plugin-transform-remove-strict-mode": "0.0.2",
     "css-loader": "^2.1.0",
