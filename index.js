@@ -1,1 +1,1 @@
-module.exports = require('./build/znui.js');
+module.exports = require('./src/znui.js');

@@ -1,22 +1,11 @@
 {
   "name": "znui",
-  "version": "1.2.11",
+  "version": "1.2.12",
   "description": "znui is the front-end basic framework.",
   "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/znui/znui.git"
-  },
-  "scripts": {
-    "webpack": "rimraf dist && webpack",
-    "webpack-watch": "rimraf dist && webpack --watch",
-    "clean-dist": "rimraf dist",
-    "clean-build": "rimraf build",
-    "release": "npm run clean-dist && npm run clean-build && babel src -d build && webpack --uglify",
-    "build": "rimraf build && babel src -d build",
-    "dist": "rimraf dist && webpack --uglify",
-    "publish": "npm publish",
-    "unpublish": "npm unpublish"
   },
   "keywords": [
     "front-end",
@@ -28,27 +17,7 @@
   "email": "xuyy0618@qq.com",
   "license": "MIT",
   "dependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.4.0",
-    "@babel/preset-env": "^7.3.1",
-    "@babel/preset-react": "^7.0.0",
     "@zeanium/core": "latest",
-    "@zeanium/web": "latest",
-    "babel-loader": "^8.0.5",
-    "babel-plugin-transform-remove-strict-mode": "0.0.2",
-    "css-loader": "^2.1.0",
-    "cssnano": "^4.1.10",
-    "extract-text-webpack-plugin": "^4.0.0-beta.0",
-    "less": "^3.9.0",
-    "less-loader": "^4.1.0",
-    "optimize-css-assets-webpack-plugin": "^5.0.1",
-    "raw-loader": "^1.0.0",
-    "rimraf": "^2.6.3",
-    "scss": "^0.2.4",
-    "scss-loader": "0.0.1",
-    "style-loader": "^0.23.1",
-    "uglifyjs-webpack-plugin": "^2.1.1",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0"
+    "@zeanium/web": "latest"
   }
 }
