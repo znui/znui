@@ -1,5 +1,7 @@
-require("@zeanium/core");
-require("@zeanium/web");
+if(!window.zn) {
+    var zn = require("@zeanium/core");
+    var znweb = require("@zeanium/web");
+}
 module.exports = zn.GLOBAL.znui = {
     downloadDataURL: function (dataURL, filename){
         var blob = this.dataURLToBlob(dataURL);
