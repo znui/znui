@@ -1,8 +1,8 @@
 if(!window.zn) {
-    var zn = require("@zeanium/core");
-    var znweb = require("@zeanium/web");
+    require("@zeanium/core");
+    require("@zeanium/web");
 }
-module.exports = zn.GLOBAL.znui = {
+module.exports = window.znui = {
     downloadDataURL: function (dataURL, filename){
         var blob = this.dataURLToBlob(dataURL);
         var url = window.URL.createObjectURL(blob);
@@ -122,9 +122,9 @@ module.exports = zn.GLOBAL.znui = {
     },
     classname: function (){
         var _items = [];
-        zn.each(Array.prototype.slice.call(arguments), function (item, index){
+        Array.prototype.slice.call(arguments).forEach(function (item, index){
             if(item){
-                switch (zn.type(item)) {
+                switch (window.zn.type(item)) {
                     case 'string':
                         _items.push(item);
                         break;
@@ -139,9 +139,9 @@ module.exports = zn.GLOBAL.znui = {
     },
     style: function (){
         var _styles = [];
-        zn.each(Array.prototype.slice.call(arguments), function (item, index){
+        Array.prototype.slice.call(arguments).forEach(function (item, index){
             if(item){
-                switch (zn.type(item)) {
+                switch (window.zn.type(item)) {
                     case 'string':
                         _styles.push(item);
                         break;
