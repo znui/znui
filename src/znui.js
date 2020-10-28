@@ -10,16 +10,107 @@ module.exports = window.znui = {
         this.downloadURL(url, filename);
     },
     downloadURL: function (url, filename){
-        var a = document.createElement("a");
-        a.style = "display: none";
-        a.href = url;
+        var aTag = document.createElement("a");
+        if(!('download' in aTag)){
+            console.error('浏览器不支持a标签文件下载！');
+        }
+        aTag.style.display = "none";
+        aTag.href = url;
         if(filename){
-            a.download = filename;
+            aTag.download = filename;
+        }
+        document.body.appendChild(aTag);
+        aTag.click();
+        document.body.removeChild(aTag);
+        window.URL.revokeObjectURL(url);
+    },
+    imageToCanvas: function (imgObject, maxWidth, maxHeight){
+        if(!imgObject) return;
+        var _originWidth = imgObject.width || imgObject.naturalWidth,
+            _originHeight = imgObject.height || imgObject.naturalHeight,
+            _targetWidth = _originWidth,
+            _targetHeight = _originHeight;
+        
+        if(_originWidth > maxWidth || _originHeight > maxHeight) {
+            if (_originWidth / _originHeight > maxWidth / maxHeight) {
+                _targetWidth = maxWidth;
+                _targetHeight = Math.round(maxWidth * (_originHeight / _originWidth));
+            } else {
+                _targetHeight = maxHeight;
+                _targetWidth = Math.round(maxHeight * (_originWidth / _originHeight));
+            }
         }
 
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
+        var canvas = document.createElement('canvas');
+        var context = canvas.getContext('2d');
+        canvas.width = _targetWidth;
+        canvas.height = _targetHeight;
+        context.clearRect(0, 0, _targetWidth, _targetHeight);
+        context.drawImage(imgObject, 0, 0, _targetWidth, _targetHeight);
+        return canvas;
+    },
+    resizeImageToDataURL: function (imgObject, maxWidth, maxHeight, type, quality){
+        var _canvas = this.imageToCanvas(imgObject, maxWidth, maxHeight);
+        if(!_canvas) return;
+        var _type = type || 'png';
+        _type = _type == 'jpg' ? 'jpeg' : _type;
+        return _canvas.toDataURL("image/" + _type, quality || 1);
+    },
+    downloadDataURL: function (dataURL, filename){
+        if(!dataURL) return;
+        var aTag = document.createElement('a');
+        if(!('download' in aTag)){
+            console.error('浏览器不支持a标签文件下载！');
+        }
+        aTag.style.display = 'none';
+        if(filename){
+            aTag.download = filename;
+        }
+
+        aTag.href = dataURL;
+        document.body.appendChild(aTag);
+        aTag.click();
+        document.body.removeChild(aTag);
+    },
+    downloadImageDom: function (imgObject, filename, imageType, maxWidth, maxHeight, quality){
+        if(!imgObject) return;
+        var aTag = document.createElement('a');
+        if(!('download' in aTag)){
+            console.error('浏览器不支持a标签文件下载！');
+        }
+        aTag.style.display = 'none';
+        imageType = imageType || 'png';
+        if(filename){
+            aTag.download = filename;
+        }
+        var _canvas = this.imageToCanvas(imgObject, maxWidth, maxHeight);
+        if(!_canvas) return;
+        aTag.href = _canvas.toDataURL('image/' + imageType, quality || 1);
+        document.body.appendChild(aTag);
+        aTag.click();
+        document.body.removeChild(aTag);
+    },
+    downloadStringAsFile: function (stringContent, filename, options){
+        var aTag = document.createElement('a');
+        aTag.style.display = 'none';
+        if(filename){
+            aTag.download = filename;
+        }
+        aTag.href = URL.createObjectURL(new Blob([stringContent], options));
+        document.body.appendChild(aTag);
+        aTag.click();
+        document.body.removeChild(aTag);
+    },
+    dataURLToBlobByType: function (dataURL, type){
+        var _binStr = window.atob(dataURL.split(',')[1]),
+            _size = _binStr.length,
+            _ary = new Uint8Array(_size);
+
+        for (var i=0; i<len; i++ ) {
+            _ary[i] = _binStr.charCodeAt(i);
+        }
+
+        return new Blob([_ary], { type: type || 'image/png' });
     },
     dataURLToBlob: function (dataURL) {
         // Code taken from https://github.com/ebidel/filer.js

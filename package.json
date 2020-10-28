@@ -1,6 +1,6 @@
 {
   "name": "znui",
-  "version": "1.2.15",
+  "version": "1.2.16",
   "description": "znui is the front-end basic framework.",
   "main": "index.js",
   "repository": {
