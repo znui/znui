@@ -3,6 +3,32 @@ if(!window.zn) {
     require("@zeanium/web");
 }
 module.exports = window.znui = {
+    downloadExcelFromXHRResponse: function (filename, response){
+        var _aTag = document.createElement('a');
+        _aTag.href = URL.createObjectURL(new Blob([response], { 
+            type: 'text/xlsx' 
+        }));
+        _aTag.download = filename;
+        _aTag.click();
+    },
+    downloadExcelFromXHR: function (url, filename, data){
+        var xhr = new XMLHttpRequest();
+		xhr.open("post", url, true);
+		xhr.responseType = 'blob';
+		xhr.withCredentials = true;
+		xhr.setRequestHeader("Content-Type", "application/json");
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				var _aTag = document.createElement('a');
+				_aTag.href = URL.createObjectURL(new Blob([xhr.response], { 
+                    type: 'text/xlsx' 
+                }));
+				_aTag.download = filename;
+				_aTag.click();
+			}
+		};
+		xhr.send(JSON.stringify(data || {}));
+    },
     downloadDataURL: function (dataURL, filename){
         var blob = this.dataURLToBlob(dataURL);
         var url = window.URL.createObjectURL(blob);
