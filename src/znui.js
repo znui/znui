@@ -27,7 +27,71 @@ module.exports = window.znui = {
 				_aTag.click();
 			}
 		};
+        xhr.addEventListener('progress', function (){
+
+        });
 		xhr.send(JSON.stringify(data || {}));
+    },
+    downloadExcelFromXMLHttpRequest: function (args){
+        var _args = zn.extend({
+            method: 'post',
+            headers: { }
+        }, args);
+        _args.headers["Content-Type"] = _args.headers["Content-Type"] || "application/json";
+
+        var xhr = new XMLHttpRequest();
+        console.log(_args.url);
+		xhr.open(_args.method || "post", _args.url, true);
+		xhr.responseType = 'blob';
+		xhr.withCredentials = true;
+        for(var key in _args.headers) {
+            xhr.setRequestHeader(key, _args.headers[key]);
+        }
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+                var _response = xhr.response, _type = _response.type;
+                if(_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+                    var _aTag = document.createElement('a');
+                    _aTag.href = URL.createObjectURL(new Blob([xhr.response], { 
+                        type: 'text/xlsx' 
+                    }));
+                    _aTag.download = (_args.filename || 'excel') + '.xlsx';
+                    _aTag.click();
+                }else{
+                    var _fileReader = new FileReader();
+                    _fileReader.onload = function() {
+                        var _result = _fileReader.result;
+                        if(_type == 'application/json') {
+                            _result = JSON.parse(_result);
+                            _result = _result.detail
+                        }
+                        alert(_result);
+                    }
+                    _fileReader.readAsText(_response);
+                }
+			}
+		};
+
+        if(_args.loadstart) {
+            xhr.addEventListener('loadstart', _args.loadstart);
+        }
+        if(_args.load) {
+            xhr.addEventListener('load', _args.load);
+        }
+        if(_args.loadend) {
+            xhr.addEventListener('loadend', _args.loadend);
+        }
+        if(_args.progress) {
+            xhr.addEventListener('progress', _args.progress);
+        }
+        if(_args.error) {
+            xhr.addEventListener('error', _args.error);
+        }
+        if(_args.abort) {
+            xhr.addEventListener('abort', _args.abort);
+        }
+        
+		xhr.send(JSON.stringify(_args.data || {}));
     },
     downloadDataURL: function (dataURL, filename){
         var blob = this.dataURLToBlob(dataURL);
@@ -45,6 +109,7 @@ module.exports = window.znui = {
         if(filename){
             aTag.download = filename;
         }
+        zn.info('znui.downloadURL: ', url, filename);
         document.body.appendChild(aTag);
         aTag.click();
         document.body.removeChild(aTag);
@@ -177,6 +242,9 @@ module.exports = window.znui = {
     },
     isIOS: function (){
         return !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+    },
+    isSafari: function (){
+        return (/Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent));
     },
     isMobile: function (){
         if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))){
