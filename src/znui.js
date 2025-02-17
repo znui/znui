@@ -279,8 +279,17 @@ module.exports = window.znui = {
     },
     extendPath: function (path, views){
         var _views = {};
-        for(var key in views){
-            _views[path+key] = views[key];
+        switch(zn.type(views)){
+            case 'object':
+                for(var key in views){
+                    _views[path+key] = views[key];
+                }
+                break;
+            case 'array':
+                for(var _temp of views){
+                    _views = zn.extend(_views, this.extendPath(path, _temp));
+                }
+                break;
         }
 
         return _views;
